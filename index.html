@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hyekyung Clark | Cybersecurity & AI Portal</title>
+    <style>
+        /* CSS RESET & VARIABLES */
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --accent-color: #38bdf8;
+            --accent-hover: #0284c7;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+            --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-family);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* HEADER & HERO SECTION */
+        header {
+            background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+            border-bottom: 1px solid var(--border-color);
+            padding: 3rem 1.5rem;
+            text-align: center;
+        }
+
+        .header-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: rgba(56, 189, 248, 0.1);
+            color: var(--accent-color);
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.025em;
+        }
+
+        h2 {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            font-weight: 400;
+            margin-bottom: 1rem;
+        }
+
+        .institution {
+            color: var(--accent-color);
+            font-weight: 500;
+        }
+
+        /* MAIN CONTENT & GRID */
+        main {
+            flex: 1;
+            max-width: 1000px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        .section-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .section-title h3 {
+            font-size: 1.5rem;
+        }
+
+        .counter-badge {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            background: var(--card-bg);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.25rem;
+        }
+
+        /* ACTIVITY CARDS */
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.25rem;
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            border-color: var(--accent-color);
+            box-shadow: 0 4px 20px rgba(56, 189, 248, 0.15);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .card-num {
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            text-transform: uppercase;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-desc {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 600px) {
+            h1 { font-size: 1.8rem; }
+            h2 { font-size: 1rem; }
+            .grid-container { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HERO HEADER -->
+    <header>
+        <div class="header-content">
+            <span class="badge">AI & Cybersecurity Portal</span>
+            <h1>Hyekyung Clark</h1>
+            <h2>Faculty Member & Educator at <span class="institution">Central New Mexico Community College</span></h2>
+        </div>
+    </header>
+
+    <!-- MAIN ACTIVITIES SECTION -->
+    <main>
+        <div class="section-title">
+            <h3>Course Activities</h3>
+            <span class="counter-badge" id="activity-counter">Loading...</span>
+        </div>
+
+        <div class="grid-container" id="activity-grid">
+            <!-- Dynamic JavaScript Content Injected Here -->
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; <span id="year"></span> Hyekyung Clark | Central New Mexico Community College</p>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // Data structure for activities 1 through 10
+        const activities = Array.from({ length: 10 }, (_, i) => {
+            const num = String(i + 1).padStart(2, '0');
+            return {
+                id: num,
+                title: `Activity ${num}`,
+                fileName: `activity${num}.html`,
+                description: `Access lab exercise and AI prompt workflow for Activity ${num}.`
+            };
+        });
+
+        // DOM Rendering Engine
+        document.addEventListener('DOMContentLoaded', () => {
+            const gridContainer = document.getElementById('activity-grid');
+            const counterElement = document.getElementById('activity-counter');
+            const yearElement = document.getElementById('year');
+
+            // Set current year dynamically
+            yearElement.textContent = new Date().getFullYear();
+
+            // Render count
+            counterElement.textContent = `${activities.length} Module Links Active`;
+
+            // Render cards dynamically
+            gridContainer.innerHTML = activities.map(act => `
+                <a href="${act.fileName}" class="card">
+                    <div>
+                        <div class="card-header">
+                            <span class="card-num">Lab Module ${act.id}</span>
+                        </div>
+                        <div class="card-title">${act.title}</div>
+                        <div class="card-desc">${act.description}</div>
+                    </div>
+                </a>
+            `).join('');
+        });
+    </script>
+</body>
+</html>
