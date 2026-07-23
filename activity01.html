@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cybersecurity Vocabulary Flashcards</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --accent: #38bdf8;
+            --accent-hover: #0284c7;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+            --success: #22c55e;
+            --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-family);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem 1rem;
+        }
+
+        header {
+            text-align: center;
+            max-width: 600px;
+            margin-bottom: 1.5rem;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        p.subtitle {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* CONTROLS & CONTROLS BAR */
+        .controls-top {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            width: 100%;
+            max-width: 550px;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        select {
+            background-color: var(--card-bg);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .progress-text {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        /* PROGRESS BAR */
+        .progress-bar-container {
+            width: 100%;
+            max-width: 550px;
+            height: 6px;
+            background-color: var(--card-bg);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background-color: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        /* FLASHCARD CONTAINER */
+        .card-container {
+            width: 100%;
+            max-width: 550px;
+            height: 320px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .flashcard {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+        }
+
+        .flashcard.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            background-color: var(--card-bg);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-tag {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.25rem 0.75rem;
+            border-radius: 99px;
+            background-color: rgba(56, 189, 248, 0.1);
+            color: var(--accent);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+        }
+
+        .term {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .definition {
+            font-size: 1.1rem;
+            color: var(--text-main);
+            line-height: 1.5;
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+            background-color: #1a2332;
+            border-color: var(--accent);
+        }
+
+        .instruction {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* NAVIGATION BUTTONS */
+        .controls-bottom {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            width: 100%;
+            max-width: 550px;
+        }
+
+        button {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            background-color: var(--card-bg);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        button:hover {
+            background-color: var(--accent);
+            color: var(--bg-color);
+            border-color: var(--accent);
+        }
+
+        /* KEYBOARD HINT */
+        .keyboard-hints {
+            margin-top: 2rem;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-align: center;
+        }
+
+        kbd {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 0.1rem 0.4rem;
+            font-size: 0.75rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Cybersecurity Fundamentals</h1>
+        <p class="subtitle">Vocabulary Flashcards for Beginning Students</p>
+    </header>
+
+    <div class="controls-top">
+        <select id="category-select" onchange="filterCategory()">
+            <option value="All">All Categories (50)</option>
+            <option value="Fundamentals">Fundamentals</option>
+            <option value="Threats & Attacks">Threats & Attacks</option>
+            <option value="Defense & Security">Defense & Security</option>
+            <option value="Cryptography">Cryptography</option>
+            <option value="Networking">Networking</option>
+        </select>
+        <div class="progress-text" id="counter">1 / 50</div>
+    </div>
+
+    <div class="progress-bar-container">
+        <div class="progress-bar" id="progress-bar"></div>
+    </div>
+
+    <!-- FLASHCARD CONTAINER -->
+    <div class="card-container" onclick="flipCard()">
+        <div class="flashcard" id="flashcard">
+            <!-- FRONT -->
+            <div class="card-face card-front">
+                <span class="card-tag" id="card-tag-front">Category</span>
+                <div class="term" id="card-term">Term</div>
+                <span class="instruction">Click or press [Space] to reveal definition</span>
+            </div>
+            <!-- BACK -->
+            <div class="card-face card-back">
+                <span class="card-tag" id="card-tag-back">Category</span>
+                <div class="definition" id="card-def">Definition</div>
+                <span class="instruction">Click or press [Space] to see term</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- BUTTON CONTROLS -->
+    <div class="controls-bottom">
+        <button onclick="prevCard()">Previous</button>
+        <button onclick="flipCard()">Flip</button>
+        <button onclick="nextCard()">Next</button>
+    </div>
+
+    <div class="keyboard-hints">
+        Shortcuts: <kbd>&larr;</kbd> Previous | <kbd>Space</kbd> Flip | <kbd>&rarr;</kbd> Next
+    </div>
+
+    <script>
+        const flashcardsData = [
+            // Fundamentals
+            { category: "Fundamentals", term: "CIA Triad", def: "The core model for security policies consisting of Confidentiality, Integrity, and Availability." },
+            { category: "Fundamentals", term: "Confidentiality", def: "Ensuring that sensitive information is accessible only to authorized individuals." },
+            { category: "Fundamentals", term: "Integrity", def: "Guaranteeing that data has not been altered, tampered with, or destroyed in an unauthorized manner." },
+            { category: "Fundamentals", term: "Availability", def: "Ensuring that systems, networks, and data are operational and accessible when authorized users need them." },
+            { category: "Fundamentals", term: "Authentication", def: "The process of verifying the identity of a user, system, or process." },
+            { category: "Fundamentals", term: "Authorization", def: "Determining what resources an authenticated user is permitted to access or modify." },
+            { category: "Fundamentals", term: "Non-Repudiation", def: "The assurance that the sender of data cannot deny having sent it." },
+            { category: "Fundamentals", term: "Vulnerability", def: "A weakness in a system, application, or network that could be exploited by a threat driver." },
+            { category: "Fundamentals", term: "Threat", def: "Any potential event or circumstance that could harm or exploit an asset." },
+            { category: "Fundamentals", term: "Risk", def: "The potential loss or damage resulting from a threat successfully exploiting a vulnerability." },
+
+            // Threats & Attacks
+            { category: "Threats & Attacks", term: "Malware", def: "Malicious software designed to disrupt, damage, or gain unauthorized access to a computer system." },
+            { category: "Threats & Attacks", term: "Phishing", def: "A social engineering attack where fraudulent emails convince victims to reveal sensitive information." },
+            { category: "Threats & Attacks", term: "Ransomware", def: "Malware that encrypts files on a device and demands payment for the decryption key." },
+            { category: "Threats & Attacks", term: "Social Engineering", def: "Manipulating individuals into performing actions or divulging confidential information." },
+            { category: "Threats & Attacks", term: "DoS (Denial of Service)", def: "An attack that floods a system or network with traffic to render it unavailable to legitimate users." },
+            { category: "Threats & Attacks", term: "DDoS", def: "Distributed Denial of Service; a DoS attack launched simultaneously from multiple compromised systems." },
+            { category: "Threats & Attacks", term: "Man-in-the-Middle (MitM)", def: "An attack where the adversary secretly relays and alters communications between two parties." },
+            { category: "Threats & Attacks", term: "Zero-Day Exploit", def: "An attack targeting a software vulnerability that is unknown to the vendor or lacks a security patch." },
+            { category: "Threats & Attacks", term: "SQL Injection (SQLi)", def: "Injecting malicious SQL commands into database query inputs to manipulate or steal backend data." },
+            { category: "Threats & Attacks", term: "Cross-Site Scripting (XSS)", def: "Injecting malicious scripts into trusted websites to execute in an end user's web browser." },
+            { category: "Threats & Attacks", term: "Spyware", def: "Software that covertly monitors user activity and collects personal information without consent." },
+            { category: "Threats & Attacks", term: "Trojan Horse", def: "Malicious code disguised as legitimate or useful software to trick users into running it." },
+            { category: "Threats & Attacks", term: "Worm", def: "Self-replicating malware that spreads across networks without requiring human intervention." },
+            { category: "Threats & Attacks", term: "Keylogger", def: "Hardware or software that secretly records keystrokes to steal passwords or sensitive data." },
+            { category: "Threats & Attacks", term: "Brute Force Attack", def: "A trial-and-error method of attempting every possible password combination until the correct one is found." },
+
+            // Defense & Security
+            { category: "Defense & Security", term: "Firewall", def: "A network security system that monitors and controls incoming/outgoing traffic based on security rules." },
+            { category: "Defense & Security", term: "IDS (Intrusion Detection)", def: "A monitoring system that detects suspicious activity and sends alerts without actively blocking it." },
+            { category: "Defense & Security", term: "IPS (Intrusion Prevention)", def: "A system that actively inspects and blocks network traffic when malicious activity is identified." },
+            { category: "Defense & Security", term: "Multi-Factor Auth (MFA)", def: "Requiring two or more verification factors (e.g., password + mobile app code) to gain access." },
+            { category: "Defense & Security", term: "Least Privilege", def: "The principle of granting users only the minimum access levels necessary to perform their work." },
+            { category: "Defense & Security", term: "Patch Management", def: "The process of systematically acquiring, testing, and applying software updates to fix vulnerabilities." },
+            { category: "Defense & Security", term: "Zero Trust", def: "A security model requiring strict identity verification for every person and device accessing resources." },
+            { category: "Defense & Security", term: "Antivirus Software", def: "Programs designed to detect, prevent, and remove known malicious software from systems." },
+            { category: "Defense & Security", term: "SIEM", def: "Security Information and Event Management; a technology aggregating log data to detect security anomalies." },
+            { category: "Defense & Security", term: "Sandboxing", def: "Running untested or untrusted code in an isolated environment to prevent system contamination." },
+
+            // Cryptography
+            { category: "Cryptography", term: "Encryption", def: "The process of converting plain text into unreadable ciphertext to prevent unauthorized access." },
+            { category: "Cryptography", term: "Decryption", def: "The reverse process of converting ciphertext back into readable plain text using a key." },
+            { category: "Cryptography", term: "Symmetric Encryption", def: "Cryptographic system using the same secret key for both encryption and decryption." },
+            { category: "Cryptography", term: "Asymmetric Encryption", def: "Cryptographic system using a pair of keys: a public key for encryption and a private key for decryption." },
+            { category: "Cryptography", term: "Hashing", def: "Transforming input data into a fixed-length mathematical string; irreversible process used for data integrity." },
+            { category: "Cryptography", term: "Public Key", def: "A cryptographic key made available to everyone for encrypting data intended for a specific recipient." },
+            { category: "Cryptography", term: "Private Key", def: "A secret key known only to its owner, used to decrypt data encrypted with the matching public key." },
+            { category: "Cryptography", term: "Digital Signature", def: "A mathematical technique used to validate the authenticity and integrity of a digital message." },
+            { category: "Cryptography", term: "SSL/TLS", def: "Cryptographic protocols providing secure, encrypted communication over network channels like the internet." },
+            { category: "Cryptography", term: "PKI (Public Key Infra)", def: "The framework of roles, policies, and hardware used to create, manage, and distribute digital certificates." },
+
+            // Networking
+            { category: "Networking", term: "IP Address", def: "A unique numerical identifier assigned to every device connected to a computer network." },
+            { category: "Networking", term: "MAC Address", def: "A unique physical hardware identifier permanently assigned to a network interface card (NIC)." },
+            { category: "Networking", term: "VPN (Virtual Private Net)", def: "An encrypted tunnel over a public network that protects user communications and privacy." },
+            { category: "Networking", term: "DNS", def: "Domain Name System; translates user-friendly domain names (e.g., cnm.edu) into IP addresses." },
+            { category: "Networking", term: "Port", def: "A logical endpoint in an operating system used to direct network traffic to a specific service or application." }
+        ];
+
+        let activeDeck = [...flashcardsData];
+        let currentIndex = 0;
+        let isFlipped = false;
+
+        // DOM elements
+        const flashcardEl = document.getElementById('flashcard');
+        const termEl = document.getElementById('card-term');
+        const defEl = document.getElementById('card-def');
+        const tagFrontEl = document.getElementById('card-tag-front');
+        const tagBackEl = document.getElementById('card-tag-back');
+        const counterEl = document.getElementById('counter');
+        const progressBarEl = document.getElementById('progress-bar');
+
+        function updateCard() {
+            if (activeDeck.length === 0) return;
+            const currentData = activeDeck[currentIndex];
+            
+            // Remove flip class first
+            isFlipped = false;
+            flashcardEl.classList.remove('flipped');
+
+            // Wait brief moment for flip transition back if applicable
+            setTimeout(() => {
+                termEl.textContent = currentData.term;
+                defEl.textContent = currentData.def;
+                tagFrontEl.textContent = currentData.category;
+                tagBackEl.textContent = currentData.category;
+                
+                counterEl.textContent = `${currentIndex + 1} / ${activeDeck.length}`;
+                progressBarEl.style.width = `${((currentIndex + 1) / activeDeck.length) * 100}%`;
+            }, 150);
+        }
+
+        function flipCard() {
+            if (activeDeck.length === 0) return;
+            isFlipped = !isFlipped;
+            flashcardEl.classList.toggle('flipped');
+        }
+
+        function nextCard() {
+            if (activeDeck.length === 0) return;
+            currentIndex = (currentIndex + 1) % activeDeck.length;
+            updateCard();
+        }
+
+        function prevCard() {
+            if (activeDeck.length === 0) return;
+            currentIndex = (currentIndex - 1 + activeDeck.length) % activeDeck.length;
+            updateCard();
+        }
+
+        function filterCategory() {
+            const selected = document.getElementById('category-select').value;
+            if (selected === "All") {
+                activeDeck = [...flashcardsData];
+            } else {
+                activeDeck = flashcardsData.filter(item => item.category === selected);
+            }
+            currentIndex = 0;
+            updateCard();
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space') {
+                e.preventDefault();
+                flipCard();
+            } else if (e.code === 'ArrowRight') {
+                nextCard();
+            } else if (e.code === 'ArrowLeft') {
+                prevCard();
+            }
+        });
+
+        // Initialize first card on load
+        updateCard();
+    </script>
+</body>
+</html>
